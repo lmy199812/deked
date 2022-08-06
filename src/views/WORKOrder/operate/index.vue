@@ -23,11 +23,18 @@
       </form>
     </div>
     <!-- 列表 -->
-    <div class="list"></div>
+    <div class="list">
+      <Button :name="name" :icon="icon" />
+      <Button :name="name2" />
+      <Lists />
+    </div>
   </div>
 </template>
 
 <script>
+import Button from '@/components/Button/index.vue'
+import Lists from '@/components/Lists/index.vue'
+import { getOrderList } from '@/api/table'
 export default {
   data() {
     return {
@@ -35,13 +42,36 @@ export default {
       input1: '',
       input2: '',
       input3: '',
-      select: ''
+      select: '',
+      name: '新建',
+      name2: '工单配置',
+      icon: 'el-icon-circle-plus-outline'
     }
   },
+  components: {
+    Button,
+    Lists
+  },
 
-  created() {},
+  created() {
+    this.getOrderList1()
+  },
 
-  methods: {}
+  methods: {
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex === 1) {
+        return 'warning-row'
+      } else if (rowIndex === 3) {
+        return 'success-row'
+      }
+      return ''
+    },
+    async getOrderList1() {
+      console.log(1111)
+      const res = await getOrderList()
+      console.log(res)
+    }
+  }
 }
 </script>
 
@@ -89,6 +119,7 @@ export default {
   width: 96%;
   margin-left: 25px;
   margin-top: 20px;
+  padding: 20px;
   background-color: #fff;
   height: 100%;
 }

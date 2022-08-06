@@ -7,7 +7,7 @@ router.beforeEach((to, from, next) => {
   console.log(token)
   if (token) {
       if (!store.state.user.userInfo.userId) {
-          console.log(1);
+          // console.log(1);
           store.dispatch("user/getUserInfo", store.state.user.data.userId);
     }
     if (to.path === '/login') {
